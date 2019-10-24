@@ -9,6 +9,7 @@
 <?php
     include "menu.php";
 ?>
+<br><br><br><br>
 <div id="content">
     <div id="players">  
     <a href="./jugador/1">

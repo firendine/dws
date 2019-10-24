@@ -21,6 +21,7 @@ class AutoLoad {
         if (!class_exists($classNameSpace, false) && !interface_exists($classNameSpace, false)) {
             throw new Exception('Class ' . $classNameSpace . ' not found');
         }
+        //return $className;
     }
     
     /**

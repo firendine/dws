@@ -9,6 +9,7 @@
 <?php
     include "menu.php";
 ?>
+<br><br><br><br>
 <div id="content">
     Historia  
 </div>    

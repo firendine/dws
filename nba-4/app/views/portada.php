@@ -9,6 +9,7 @@
 <?php
     include "menu.php";
 ?>
+<br><br><br><br>
 <div id="content">
     <img src="public/images/escudo.jpg" />  
 </div>    

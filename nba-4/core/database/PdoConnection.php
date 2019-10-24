@@ -1,4 +1,5 @@
 <?php
+namespace core\database;
 class PdoConnection {
 
     /**
@@ -25,7 +26,7 @@ class PdoConnection {
             $pass = $dbConfig['PASSWORD'];
         try{
             
-        $this->bbdd= new PDO("$conn:host=$host;dbname=$db,$user,$pass");/*'mysql:host=localhost;dbname=nba','silvia','6sec120.L'*/
+        $this->bbdd= new \PDO($conn.":host=".$host.";dbname=".$db,$user,$pass);/*'mysql:host=localhost;dbname=nba','silvia','6sec120.L'*/
             echo "Te has conectado a la base de datos";
 
         }catch(PDOException $ex){
@@ -37,7 +38,7 @@ class PdoConnection {
     public static function getInstance() {
 
         if(self::$instance == null){
-            self::$instance == new PdoConnection();
+            self::$instance = new PdoConnection();
         }
         return self::$instance;
 
@@ -45,7 +46,7 @@ class PdoConnection {
     }
 
 
-    public function select($query, $params = null){
+    public function select($query, $params=null){
         return $this->execQuery($query,$params);
 
     }
