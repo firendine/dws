@@ -163,8 +163,25 @@ class DB
         return $val;
     }
 
-    public function insert($record) // En $record van todos los valores. Por ejemplo, quiero insertar nombre:Pau Gasol, 
+    public function insert($record) // En $record van todos los valores metidos en un array key=>value. Por ejemplo, quiero insertar nombre:Pau Gasol,
     { 
+        /**
+         * $record=["Nombre" => Pau Gasol,
+         *          "Nombre_Equipo" => Lakers,
+         *          ""
+         *          ]
+         * 
+         */
+
+        //INSERT INTO jugadores (key,key,key...) VALUES(?,?,?...); || INSERT INTO jugadores VALUES(?,?,?,?,?)
+        //El where(...$params) actua como el VALUES
+        // si no se pasan columnas, quitar los parentesis y que lo recoja todos los valores de la tabla
+
+        $tableName = $this->getTable();
+        $params = [];
+        $query = "INSERT INTO $tableName ";
+
+        $this->fields
 
 
     }
