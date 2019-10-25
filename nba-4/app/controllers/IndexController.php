@@ -17,7 +17,9 @@ class IndexController extends Controller {
     }
 
     public function JugadoresAction() {
-        $this->renderView('jugadores');
+        $jugadores =  DB::table('jugadores')->select(['Nombre'])->where('Nombre_equipo', 'LIKE', "Lakers")->get();
+        $this->renderView('jugadores', ['jugadores'=>$jugadores]);
+       // $this->renderView('jugadores');
     }
 
 }

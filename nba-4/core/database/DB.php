@@ -1,5 +1,7 @@
 <?php
+
 namespace core\database;
+
 use core\database\PdoConnection as PdoConn;
 
 
@@ -15,7 +17,8 @@ class DB
         '<',
         '>',
         '<=',
-        '>='
+        '>=',
+        'LIKE' //Añadido LIKE en operators
     ];
 
     /**
@@ -64,7 +67,7 @@ class DB
     private function sanitize($value)
     {
         //Añadido un espacio en blanco a la expresión regular para los nombres de quipo compuestos
-        return preg_replace('/[^0-9a-zA-Z_-]/', '', $value);
+        return preg_replace('/[^ 0-9a-zA-Z_-]/', '', $value);
     }
 
     public function where($field, $operator, $value)
@@ -93,77 +96,78 @@ class DB
     public function get()
     {
         $tableName = $this->getTable();
-        $selectedFields = $this->select($this->fields);
-
         $params = [];
+        $query = "SELECT ";
 
-        $query = "SELECT *";
-        /*
-        if (empty($selectedFields)) {
-            $selectedFields = " * ";
-        */
-        /*} else {
-            foreach ($selectedFields as $key=> $value) {
-                echo "key:$key value:";
-                var_dump($value);
-                $query .= $value;
+        /** 
+         *        echo "fields: ";
+         *       var_dump($this->fields);
+         */
+
+        if (empty($this->fields)) {
+            $query .= " * ";
+        } else {
+            foreach ($this->fields as $key => $value) {
+                // if($field === end($this->fields)){
+                $sql = implode(",", $value); //Si pasa un valor fuera de corchetes(un String), el implode da error. Si pasa un empty entre corchetes, también da error.
+                $query .= $sql;
+
+                // }else{
+
+                // }
+
             }
-        */
-        //}
-        
+        }
 
         $query .= " FROM $tableName";
 
-            $query .= " WHERE ";
-            foreach ($this->wheres as $condition) {
-                if ($condition === end($this->wheres)) {
-                    $query .= $condition["field"] . " " . $condition["operator"] . "?;";
-                } else {
-                    $query .= $condition["field"] . " " . $condition["operator"] . "? AND ";
-                }
-
-                array_push($params, $condition['value']);
-
+        $query .= " WHERE ";
+        foreach ($this->wheres as $condition) {
+            if ($condition === end($this->wheres)) {
+                $query .= $condition["field"] . " " . $condition["operator"] . "?;";
+            } else {
+                $query .= $condition["field"] . " " . $condition["operator"] . "? AND ";
             }
 
-        echo "<br>";
-        echo "params:";
-        var_dump($params);
-        echo '<br>';
-
-        echo $query;
-
-
-
-       // $stmt = $conn->prepare($query);
-        //$stmt->execute($params);
-       // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-       //PdoConn::select($query,$params);
-
-       $result=PdoConn::getInstance();
-       echo"<br>result:";
-       var_dump($result);
-       echo "<br>";
-
-     
-
-       $result = $result->select($query, $params); 
-       echo"<br>result2:";
-       var_dump($result);
-       echo"<br>";
-
-            
-        foreach ($result as $key => $value) {
-            echo "clave: $key <br>";
-            $val = implode(",", $value);
-            echo "valor: $val <br>";
+            array_push($params, $condition['value']);
         }
-        
 
+        echo "<br><br>params:";
+        var_dump($params);
+        echo "<br><br>Query: " . $query . "<br>";
+
+
+
+        $result = PdoConn::getInstance();
+        echo "<br><br>resultado getInstance: ";
+        var_dump($result);
+        echo "<br><br>";
+
+
+
+        $resultado = $result->select($query, $params);
+        echo "<br><br>resultado select: ";
+        var_dump($resultado);
+        echo "<br><br>";
+
+
+        foreach ($resultado as $key => $value) { //MODIFICAR PARA COGER MÁS DE 1 VALOR e imprimir equipos según nombre
+            echo "clave: $key <br><br>";
+            //$pruebaVal="";
+           // $pruebaVal.= "," . $value;
+            $val = implode(",", $value);
+            echo "valor: $val <br><br>";
+            
+        }
+       // var_dump($pruebaVal);
+        return $val;
     }
 
-    public function insert($record)
-    { }
+    public function insert($record) // En $record van todos los valores. Por ejemplo, quiero insertar nombre:Pau Gasol, 
+    { 
+
+
+    }
 
     public function lastInsertId()
     {

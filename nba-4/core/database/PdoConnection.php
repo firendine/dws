@@ -71,7 +71,7 @@ class PdoConnection {
     private function execQuery($query, $params) {
         $st= $this->bbdd->prepare($query);
         $st->execute($params);
-        return $st->fetchAll();
+        return $st->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     private function execQueryNoResult($query, $params) {

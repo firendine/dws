@@ -10,12 +10,13 @@ class JugadorController extends Controller {
     
 
     public function DatosJugadorAction($params) {
-        $idJugador= $params['idJugador'];
-        $jugador = DB::table("jugadores")->where("codigo", "=", $idJugador)->get();
+        $idJugador= $params['idJugador'];  //$jugador= jugadorModel::find($idJugador);
+        $jugador =  DB::table('jugadores')->select(['Nombre'])->where('codigo', '=', $idJugador)->get();
 
-        //$jugador= jugadorModel::find($idJugador);
+
+        echo "Jugador:" .$jugador;
+
         $this->renderView('jugador', ['jugador'=>$jugador]);
-
 
     }
 
