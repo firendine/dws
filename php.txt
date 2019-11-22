@@ -1,0 +1,13 @@
+la peticion la hace javascript (ajax)
+
+seleccionas una película y accede a su modelo
+se envian los datos en formato json
+
+
+cambios en el framework:
+-ya no hay nada visual en el framework
+
+
+<pre></pre>
+
+graphql
