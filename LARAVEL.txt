@@ -1,0 +1,44 @@
+----- LARAVEL -----
+___________________
+1)Se instala composer: 
+2)Se instala laravel: composer global require "laravel/installer"
+3)Se crea proyecto laravel: 
+
+
+
+composer create-project --prefer-dist laravel/laravel newLaravelProject
+ php artisan server
+composer require laravel/ui
+php artisan ui vue
+php artisan ui:auth
+(luego de el anterior)npm install && npm run dev
+
+variables del entorno del sistema Path(de abajo) y añadir ruta de mysql(xampp)
+
+php artisan make:migration create_pruebas_table
+mysql -u root -p
+
+php artisan migrate //Para subir/actualizar todo a la base de datos
+
+php artisan make:controller pruebaController --invokable
+php artisan make:controller usuarioController
+php artisan make:controller plantaController --resource
+
+
+Se debe cambiar el nombre de la base de datos en el archivo .env en la constante DB_DATABASE.
+Por defecto se llama "laravel", se debe cambiar por el nombre de la bbdd que vayamos a usar.
+
+
+
+Para crear un controlador: php artisan make:controller nombreController
+
+El controllador se crea en app/Http/Controllers
+Se debe crear una funcion en el controller para que te devuelva algo, vista, código html...
+Si ponemos parametros en la función incializados ()
+
+
+
+
+
+
+
